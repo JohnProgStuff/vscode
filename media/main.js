@@ -95,6 +95,10 @@
         colors.push({ value: getNewCalicoColor() });
         updateColorList(colors);
     }
+
+    function test() {
+         vscode.postMessage({ type: 'testmsg', value: 5 });
+    }
 }());
 
 

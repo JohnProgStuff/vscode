@@ -35,6 +35,11 @@ class ColorsViewProvider {
                         (_a = vscode.window.activeTextEditor) === null || _a === void 0 ? void 0 : _a.insertSnippet(new vscode.SnippetString(`#${data.value}`));
                         break;
                     }
+                case 'testmsg':
+                    {
+                        (_a = vscode.window.activeTextEditor) === null || _a === void 0 ? void 0 : _a.insertSnippet(new vscode.SnippetString(`#${data.value}`));
+                        break;
+                    }
             }
         });
     }
@@ -60,55 +65,42 @@ class ColorsViewProvider {
         // Use a nonce to only allow a specific script to be run.
         const nonce = getNonce();
         return `<!DOCTYPE html>
-			<html lang="en">
-			<head>
-				<meta charset="UTF-8">
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
 
-				<!--
-					Use a content security policy to only allow loading images from https or from our extension directory,
-					and only allow scripts that have a specific nonce.
-				-->
-				<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
+                <!--
+                    Use a content security policy to only allow loading images from https or from our extension directory,
+                    and only allow scripts that have a specific nonce.
+                -->
+                <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
 
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-				<link href="${styleResetUri}" rel="stylesheet">
-				<link href="${styleVSCodeUri}" rel="stylesheet">
-				<link href="${styleMainUri}" rel="stylesheet">
-				
-				<title>Cat Colors</title>
-			</head>
-			<body>
-				<ul class="color-list">
-				</ul>
+                <link href="${styleResetUri}" rel="stylesheet">
+                <link href="${styleVSCodeUri}" rel="stylesheet">
+                <link href="${styleMainUri}" rel="stylesheet">
+                
+                <title>Cat Colors</title>
+            </head>
+            <body>
+                <ul class="color-list">
+                </ul>
                 <button class="add-color-button">Add Color</button>
                 <table>
                   <tr>
-                   <td>
-                    <label for="ofpid">OFP ID</label>
-                   </td>
-                   <td>
-                    <input type="text" maxlength="4" name="ofpid" value="OFP1" id="ofpid" pattern="[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()?]">
-                   </td>
+                   <td> <label for="ofpid">OFP ID</label> </td>
+                   <td> <input type="text" maxlength="4" name="ofpid" value="OFP1" id="ofpid" pattern="[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()?]"> </td>
                   </tr>
-                    <tr>
-					<td width=50>
-                      <input type="checkbox" name="choice" value="yes" id="choice-yes">
-					</td>
-				    <td>
-						<label for="choice-yes">Debug</label>
-					</td>
-                    
-					</tr>
-					<tr>
-						<td>
-                        <input type="checkbox" name="choice" value="no" id="choice-no">
-						</td>
-						<td>
-							<label for="choice-no">Depend</label>
-						</td>
-						</tr>
-				</table>
+                  <tr>
+                   <td width=50> <input type="checkbox" name="choice" value="yes" id="choice-yes"></td>
+                   <td><label for="choice-yes">Debug</label></td>
+                  </tr>
+                  <tr>
+                   <td> <input type="checkbox" name="choice" value="no" id="choice-no">	</td>
+                   <td> <label for="choice-no">Depend</label> </td>
+                  </tr>
+                </table>
                 <form>
 
                 <label for="build">Build Target:</label>
@@ -125,13 +117,13 @@ class ColorsViewProvider {
                 <input type="submit" value="BUILD">
                 
                 </form>
-				
+                
                 <button class="add-color-button">TEST COMPILE</button>
                 <button class="add-color-button">CLANG</button>
                 
                 <script nonce="${nonce}" src="${scriptUri}"></script>
-			</body>
-			</html>`;
+            </body>
+            </html>`;
     }
 }
 

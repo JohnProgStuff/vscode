@@ -26,9 +26,18 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+			  {
+				"id": "sms-stuff",
+				"title": "SMS STUFF",
+				"icon": "resources/package-explorer.svg"
+			  }
+			]
+		},
 		
 		"views": {
-			"explorer": [
+			"sms-stuff": [
 				{
 					"type": "webview",
 					"id": "calicoColors.colorsView",
