@@ -15,7 +15,10 @@
     document.querySelector('.add-color-button').addEventListener('click', () => {
         addColor();
     });
-
+    document.querySelector('.tidy-code-button').addEventListener('click', () => {
+        tidyCode();
+    });
+    
     // Handle messages sent from the extension to the webview
     window.addEventListener('message', event => {
         const message = event.data; // The json data that the extension sent
@@ -29,6 +32,11 @@
                 {
                     colors = [];
                     updateColorList(colors);
+                    break;
+                }
+            case 'tidyToMain': // this works with Ctrl+Shift+P type 'tidy code'. and 'tidymsg received' is printed in console
+                {
+                    console.log("tidymsg received from extension");
                     break;
                 }
 
@@ -48,6 +56,9 @@
             const colorPreview = document.createElement('div');
             colorPreview.className = 'color-preview';
             colorPreview.style.backgroundColor = `#${color.value}`;
+            colorPreview.addEventListener('click', () => {
+                onColorClicked(color.value);
+            });
             colorPreview.addEventListener('click', () => {
                 onColorClicked(color.value);
             });
@@ -95,10 +106,13 @@
         colors.push({ value: getNewCalicoColor() });
         updateColorList(colors);
     }
+    
+    function tidyCode() {
+        console.log("tidyCode function called send message to extension");
+        vscode.postMessage({ type: 'tidyCodeMsg', value: 5 });
+    }
 
     function test() {
          vscode.postMessage({ type: 'testmsg', value: 5 });
     }
 }());
-
-

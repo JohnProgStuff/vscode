@@ -56,6 +56,14 @@
 				"category": "Calico Colors",
 				"title": "Clear Colors",
 				"icon": "$(clear-all)"
+			},
+			{
+				"command": "calicoColors.createAndSend",
+				"title": "terminal CMD"
+			},
+			{
+				"command": "calicoColors.tidyCode",
+				"title": "tidy code"
 			}
 		],
 		"menus": {
@@ -66,7 +74,10 @@
 					"when": "view == calicoColors.colorsView"
 				}
 			]
-		}
+		},
+		"taskDefinitions": [
+			
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
