@@ -152,7 +152,7 @@ class ColorsViewProvider implements vscode.WebviewViewProvider {
 			   <td> <label for="choice-no">Depend</label> </td>
 			  </tr>
 			</table>
-			<form>
+			<form id="form">
 
 			<label for="build">Build Target:</label>
 			<select id="ofp" name="build"><!-- size=3 multiple -->

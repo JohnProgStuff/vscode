@@ -12,6 +12,11 @@
 
     updateColorList(colors);
 
+    const form = document.getElementById('form');
+
+    // const log = document.getElementById('log')
+    form.addEventListener('submit', logSubmit);
+
     document.querySelector('.add-color-button').addEventListener('click', () => {
         addColor();
     });
@@ -43,6 +48,11 @@
         }
     });
 
+    function logSubmit(event) {
+        console.log(`Form Submitted! Time stamp: ${event.timeStamp}`);
+        event.preventDefault();
+    }
+    
     /**
      * @param {Array<{ value: string }>} colors
      */

@@ -20,28 +20,6 @@ function activate(context) {
         const terminal = vscode.window.createTerminal('Tidy Term #${NEXT_TERM_ID++}');
         terminal.show();
         terminal.sendText("echo 'Sent text immediately after creating: '");
-        const taskProvider = vscode.tasks.registerTaskProvider('rake', {
-            provideTasks: () => {
-                if(!rakePromise) {
-                    rakePromise = getRakeTasks();
-                }
-                return rakePromise;
-            },
-            resolveTask(_task: vscode.Task): vscode.Task | undefined{
-                const task = _task.definition.task;
-                if (task) { // required by rake tasks
-                    const definition: RakeTaskDefinition = <any>_task.definition;
-                    return new vscode.Task(
-                        definition,
-                        _task.scope ?? vscode.TaskScope.Workspace,
-                        definition.task,
-                        'rake', 
-                        new vscode.ShellExecution(`rake ${definition.task}`)
-                    );
-                }
-                return undefined;
-            }
-        }) ;
     }));
 }
 exports.activate = activate;
@@ -146,7 +124,7 @@ class ColorsViewProvider {
 			   <td> <label for="choice-no">Depend</label> </td>
 			  </tr>
 			</table>
-			<form>
+			<form id="form">
 
 			<label for="build">Build Target:</label>
 			<select id="ofp" name="build"><!-- size=3 multiple -->
