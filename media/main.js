@@ -11,7 +11,7 @@
     let colors = oldState.colors;
 
     updateColorList(colors);
-
+    
     const form = document.getElementById('form');
 
     // const log = document.getElementById('log')
@@ -118,8 +118,9 @@
     }
     
     function tidyCode() {
+        let ofpid_text = document.getElementById('ofpid').value;
         console.log("tidyCode function called send message to extension");
-        vscode.postMessage({ type: 'tidyCodeMsg', value: 5 });
+        vscode.postMessage({ type: 'tidyCodeMsg', value: ofpid_text, term: document.getElementById('newTerm').checked});
     }
 
     function test() {

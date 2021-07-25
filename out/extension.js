@@ -3,8 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = void 0;
 const vscode = require("vscode");
 const cwd = ".";
+let NEXT_TERM_ID = new Number(0);
+//let reuseTerminal = true;
+let terminal = vscode.window.createTerminal('Tidy Term #${NEXT_TERM_ID++}');
 function activate(context) {
     console.log('Congratulations, your extension "smst" is now active!');
+    const terminal1 = vscode.window.createTerminal('Tidy Term #_ ${NEXT_TERM_ID++}');
     const provider = new ColorsViewProvider(context.extensionUri);
     context.subscriptions.push(vscode.window.registerWebviewViewProvider(ColorsViewProvider.viewType, provider));
     context.subscriptions.push(vscode.commands.registerCommand('calicoColors.addColor', () => {
@@ -16,11 +20,50 @@ function activate(context) {
     context.subscriptions.push(vscode.commands.registerCommand('calicoColors.tidyCode', () => {
         provider.tidyCode();
     }));
-    context.subscriptions.push(vscode.commands.registerCommand('calicoColors.createAndSend', () => {
+    /*const createAndSendHandler = (name: string = 'world') => {
         const terminal = vscode.window.createTerminal('Tidy Term #${NEXT_TERM_ID++}');
         terminal.show();
-        terminal.sendText("echo 'Sent text immediately after creating: '");
+        let msg='Sent text immediately after creating: ${name}';
+        terminal.sendText("echo ${msg}");// 'Sent text immediately after creating: ${name}'");
+        console.log(`Hello ${name}!!!`);
+      };
+      
+      () => {
+    const terminal = vscode.window.createTerminal('Tidy Term #${NEXT_TERM_ID++}');
+    terminal.show();
+    terminal.sendText("echo 'Sent text immediately after creating: '");
+    }*/
+    context.subscriptions.push(vscode.commands.registerCommand('calicoColors.createAndSend', (name = 'world1', term = false) => {
+        // I need a way to see what terminal is active and use it.
+        let count = 0;
+        let msg = "";
+        // if unchecked
+        if (`${term}` == "false") {
+            terminal = vscode.window.createTerminal(`'Tidy Term #${NEXT_TERM_ID++}'`);
+            terminal.show();
+            msg = `"New terminal: ${name}, ${term}"`;
+            //get new process id and save in list then go through list to find a terminal started by this extension(byname)
+            //terminal.processId
+            //terminal = vscode.window.createTerminal('ExtensionTerminalOptions')
+        }
+        else {
+            vscode.window.terminals.forEach((termid) => {
+                //console.log(`"terminal #${count++}: ${termid.name}"`);
+                if (termid.name.includes("Tidy Term")) {
+                    terminal = termid;
+                    msg = `"Use old term ${count++} times: ${name}, ${term}"`;
+                }
+            });
+        }
+        //const terminal = vscode.window.createTerminal(`'Tidy Term #${NEXT_TERM_ID++}'`);
+        //terminal.show();
+        /*String msg="`Hello ${name}!!!`";*/
+        terminal.sendText(`echo "${msg}"`);
+        //terminal.sendText(`echo "Sent text immediately after creating: ${name}, ${term}"`);
+        console.log(`Hello ${name}!!!`);
+        //terminal.hide();
     }));
+    /* can I register a command that would execute when someone clicked something in the terminal.*/
 }
 exports.activate = activate;
 class ColorsViewProvider {
@@ -49,7 +92,7 @@ class ColorsViewProvider {
                     {
                         //vscode.window.activeTextEditor?.insertSnippet(new vscode.SnippetString(`#${data.value}`));
                         //terminalCMD(this);
-                        vscode.commands.executeCommand("calicoColors.createAndSend");
+                        vscode.commands.executeCommand("calicoColors.createAndSend", data.value, data.term);
                         break;
                     }
                 case 'testmsg':
@@ -143,7 +186,11 @@ class ColorsViewProvider {
 			
 			<button class="add-color-button">TEST COMPILE</button>
 			<button class="tidy-code-button">TIDY</button>
-			
+			<table><tr>
+			   <td width=50> <input type="checkbox" name="newTerm" id="newTerm" checked=true></td>
+			   <td><label for="newTerm"  title="Check to use the active terminal for commands ran in a terminal.">Reuse Terminal</label></td>
+			  </tr></table>
+
 			<script nonce="${nonce}" src="${scriptUri}"></script>
 		</body>
 		</html>`;

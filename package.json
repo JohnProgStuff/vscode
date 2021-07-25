@@ -28,14 +28,13 @@
 	"contributes": {
 		"viewsContainers": {
 			"activitybar": [
-			  {
-				"id": "sms-stuff",
-				"title": "SMS STUFF",
-				"icon": "resources/smiley.svg"
-			  }
+				{
+					"id": "sms-stuff",
+					"title": "SMS STUFF",
+					"icon": "resources/smiley.svg"
+				}
 			]
 		},
-		
 		"views": {
 			"sms-stuff": [
 				{
@@ -75,9 +74,7 @@
 				}
 			]
 		},
-		"taskDefinitions": [
-			
-		]
+		"taskDefinitions": []
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
@@ -85,7 +82,9 @@
 		"lint": "eslint . --ext .ts,.tsx",
 		"watch": "tsc -w -p ./"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"git": "^0.1.5"
+	},
 	"devDependencies": {
 		"@types/vscode": "^1.50.0",
 		"@typescript-eslint/eslint-plugin": "^4.16.0",
