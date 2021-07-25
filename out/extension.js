@@ -37,23 +37,26 @@ function activate(context) {
         // I need a way to see what terminal is active and use it.
         let count = 0;
         let msg = "";
+        let term_exists = false;
         // if unchecked
-        if (`${term}` == "false") {
+        if (`${term}` == "true") {
+            vscode.window.terminals.forEach((termid) => {
+                //console.log(`"terminal #${count++}: ${termid.name}"`);
+                if (termid.name.includes("Tidy Term")) {
+                    term_exists = true;
+                    terminal = termid;
+                    msg = `"Use old term ${count++} times: ${name}, ${term}"`;
+                }
+                //set term false if
+            });
+        }
+        if (`${term}` == "false" || term_exists == false) {
             terminal = vscode.window.createTerminal(`'Tidy Term #${NEXT_TERM_ID++}'`);
             terminal.show();
             msg = `"New terminal: ${name}, ${term}"`;
             //get new process id and save in list then go through list to find a terminal started by this extension(byname)
             //terminal.processId
             //terminal = vscode.window.createTerminal('ExtensionTerminalOptions')
-        }
-        else {
-            vscode.window.terminals.forEach((termid) => {
-                //console.log(`"terminal #${count++}: ${termid.name}"`);
-                if (termid.name.includes("Tidy Term")) {
-                    terminal = termid;
-                    msg = `"Use old term ${count++} times: ${name}, ${term}"`;
-                }
-            });
         }
         //const terminal = vscode.window.createTerminal(`'Tidy Term #${NEXT_TERM_ID++}'`);
         //terminal.show();
