@@ -8,6 +8,9 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	console.log('Congratulations, your extension "smst" is now active!');
 
+	//vscode.commands.executeCommand('terminal.integrated.tabs.enabled', false);
+	//terminal.integrated.tabs.enabled:
+
 	const terminal1 = vscode.window.createTerminal('Tidy Term #_ ${NEXT_TERM_ID++}');
 
 	const provider = new ColorsViewProvider(context.extensionUri);
@@ -44,7 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
         terminal.sendText("echo 'Sent text immediately after creating: '");
 		}*/
 	context.subscriptions.push(
-		vscode.commands.registerCommand('calicoColors.createAndSend', (name: string = 'world1', term: bool = false) => {
+		vscode.commands.registerCommand('calicoColors.createAndSend', (name: string = 'world', term: bool = false) => {
 			// I need a way to see what terminal is active and use it.
 			let count=0;
 			let msg = "";
@@ -52,28 +55,20 @@ export function activate(context: vscode.ExtensionContext) {
 			// if unchecked
 			if (`${term}` == "true"){
 				vscode.window.terminals.forEach((termid) => {
-
 					//console.log(`"terminal #${count++}: ${termid.name}"`);
-					
 					if (termid.name.includes("Tidy Term"))
 					{
 						term_exists=true;
 						terminal = termid;
 						msg = `"Use old term ${count++} times: ${name}, ${term}"`;
 					}
-					//set term false if
 				});
-
 			}
-			
 			if (`${term}` == "false" || term_exists == false){
 				terminal = vscode.window.createTerminal(`'Tidy Term #${NEXT_TERM_ID++}'`);
 				terminal.show();
 				msg = `"New terminal: ${name}, ${term}"`;
-				
-				//get new process id and save in list then go through list to find a terminal started by this extension(byname)
-                //terminal.processId
-                //terminal = vscode.window.createTerminal('ExtensionTerminalOptions')
+				//terminal = vscode.window.createTerminal('ExtensionTerminalOptions')
 			}
 			//const terminal = vscode.window.createTerminal(`'Tidy Term #${NEXT_TERM_ID++}'`);
 			//terminal.show();
