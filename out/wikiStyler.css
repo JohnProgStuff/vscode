@@ -1,0 +1,15 @@
+/* wiki markdown styler */
+
+h3[id="1st-one"]{
+	color:red;
+}
+
+
+h3[section=2]{
+	color:red;
+}
+
+.test::before{
+	color:navy;
+	content : "Number";
+}

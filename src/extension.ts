@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+//import * as fs from 'fs';
 const cwd = ".";
 let NEXT_TERM_ID = new Number(0);
 //let reuseTerminal = true;
@@ -164,7 +165,34 @@ class ColorsViewProvider implements vscode.WebviewViewProvider {
 
 		// Use a nonce to only allow a specific script to be run.
 		const nonce = getNonce();
-
+		
+		/*
+		var rawFile = new XMLHttpRequest();
+        rawFile.open("GET", "file://~/vscodeWork/webview-view-sample/webview.html", false);
+        rawFile.onreadystatechange = function ()
+            {
+                if(rawFile.readyState === 4)
+                {
+                    if(rawFile.status === 200 || rawFile.status == 0)
+                    {
+                        var allText = rawFile.responseText;
+                        alert(allText);
+                    }
+                }
+            }
+        rawFile.send(null);
+        */
+        // return `rawFile`;
+		
+		/*var reader = new FileReader();
+		reader.onload = function(event) {
+			console.log('File content:', event.target.result);
+		};
+		return reader.readAsText(files[0]);*/
+		
+        //const text = fs.readFileSync("../out/webview.txt");
+        //console.log(text);
+		//return `${text}`;
 		return `<!DOCTYPE html>
 		<html lang="en">
 		<head>
