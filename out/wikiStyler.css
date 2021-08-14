@@ -1,12 +1,14 @@
 /* wiki markdown styler */
 
-h3[id="1st-one"]{
+h3[id="1st-one"]::before{
 	color:red;
+	content : "Number";
 }
 
 
-h3[section=2]{
+h3[section="2"]::before{
 	color:red;
+	content : "Number";
 }
 
 .test::before{

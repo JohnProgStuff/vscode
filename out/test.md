@@ -1,11 +1,17 @@
 [rockin it](test_2.md)
+<style>
+.red {color: red}
+.text::before{color: green; content: "infileStyle"; }
+</style>
 
-<link rel="stylesheet" href="./wikiStyler.css" >
+<!-- link rel="stylesheet" href="./wikiStyler.css" -->
 
-<p>Text in front <span class="test">Section Heading</span> More text here</p>
+## test markdown header  {#identifier .text}
 
-<h3 id= "1st-one" section=1 ><span class="test"> Section Heading</span></h3>
-<h3			 id ="2nd-One"section=2 >
+<p>Text in front <span class="test"> Section Heading</span> More text here</p>
+
+<h3 section=1 id= "1st-one"  ><span class="test"> Section Heading</span></h3>
+<h3	id ="2nd-One" section="2" >
 References</h3>
 <h3	 section=2		 id ="2nd.one" >
 References</h3>
